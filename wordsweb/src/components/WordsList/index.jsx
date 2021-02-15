@@ -4,6 +4,7 @@ import { List, Divider , Skeleton } from 'antd';
 const wordslist = (props) => {
     const { dataSource, title } = props;
     const [showlist,setShowlist]=useState(false);
+    const audio = document.createElement('audio');
     const list = [
         { "word": "he", "ch": "pron.他n.男,雄" },
         { "word": "with", "ch": "prep.有,以,用,同...,由于,和...一致,赞成,关于,就" },
@@ -26,6 +27,12 @@ const wordslist = (props) => {
     const show=()=>{
         setShowlist(!showlist)
     }
+
+    //  type 0 美音 1英音
+    const play=(type,audioUrl)=>{
+        audio.src="http://dict.youdao.com/dictvoice?type="+type+"&audio="+audioUrl;
+        audio.play();
+    }
     return (
         <div>
             <h2 onClick={show} style={{"cursor":"pointer"}}>{title}</h2>
@@ -36,7 +43,9 @@ const wordslist = (props) => {
                 dataSource={dataSource}
                 renderItem={(item,index) => (
                     <List.Item
-                        actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
+                        actions={[<a key="unit" onClick={()=>{play(0,item.word)}}>American</a>, 
+                        <a key="british" onClick={()=>{play(1,item.word)}}>British</a>,
+                        <a key="list-loadmore-more">more</a>]}
                     >
                     <List.Item.Meta
                         title={(index+1)+"."+item.word}

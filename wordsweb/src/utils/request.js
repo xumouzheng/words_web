@@ -45,8 +45,17 @@ const request = extend({
   errorHandler,
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
-  headers: {
-    "Authorization": localStorage.getItem("token")
-  },
 });
+
+request.interceptors.request.use(async (url, options) => {
+    const headers = {
+      "Authorization": localStorage.getItem("token")
+    };
+    return (
+      {
+        url: url,
+        options: { ...options, headers: headers },
+      }
+    );
+})
 export default request;

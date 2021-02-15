@@ -3,11 +3,12 @@ const Model = {
   namespace: 'task',
   state: {
     status: undefined,
-    data:"",
+    data:false,
   },
   effects: {
     *getTasks({ payload }, { call, put }) {
       const response = yield call(getTasks, payload);
+      console.log(response);
       if (response.status === 'ok') {
         yield put({
           type: 'save',
