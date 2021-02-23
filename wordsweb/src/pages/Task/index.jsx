@@ -15,6 +15,11 @@ const Task = (props) => {
         })
     }, [])
 
+    // 做选择题的练习
+    const onTest = (key) => {
+        console.log(key)
+    }
+
     return (
         <PageContainer>
             <div
@@ -25,42 +30,60 @@ const Task = (props) => {
                 {
                     data && data.data0.length > 0 &&
                     <WordsList
+                        key={0}
                         title="新单词"
+                        order={0}
+                        onTest={onTest}
                         dataSource={data.data0}
                     />
                 }
                 {
                     data && data.data1.length > 0 &&
                     <WordsList
+                        key={1}
                         title="昨天单词复习"
+                        order={1}
+                        onTest={onTest}
                         dataSource={data.data1}
                     />
                 }
                 {
                     data && data.data2.length > 0 &&
                     <WordsList
+                        key={2}
                         title="前天单词复习"
+                        order={2}
+                        onTest={onTest}
                         dataSource={data.data2}
                     />
                 }
                 {
                     data && data.data3.length > 0 &&
                     <WordsList
+                        key={3}
                         title="四天前单词复习"
+                        order={3}
+                        onTest={onTest}
                         dataSource={data.data3}
                     />
                 }
                 {
                     data && data.data4.length > 0 &&
                     <WordsList
+                        key={4}
+                        order={4}
                         title="一周前单词复习"
+                        onTest={onTest}
                         dataSource={data.data4}
                     />
                 }
                 {
                     data && data.data5.length > 0 &&
                     <WordsList
+                        key={5}
+                        order={5}
                         title="半月前单词复习"
+                        onTest={onTest}
                         dataSource={data.data5}
                     />
                 }
