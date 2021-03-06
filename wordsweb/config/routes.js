@@ -55,6 +55,12 @@ export default [
                 path: '/task',
                 component: './Task',
               },
+              {
+                name: 'favorites',
+                icon: 'StarOutlined',
+                path: '/favorites',
+                component: './Favorites',
+              },
               // {
               //   name: 'list.table-list',
               //   icon: 'table',

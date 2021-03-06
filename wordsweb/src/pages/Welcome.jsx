@@ -1,27 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography } from 'antd';
+import { Card, Alert, Typography ,Progress } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
+import { connect } from 'umi';
 import styles from './Welcome.less';
 
-const CodePreview = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
 
-export default () => {
-  const intl = useIntl();
+const welcome= (props) => {
+  const { status } = props.data;
+  useEffect(() => {
+    const { dispatch } = props;
+    dispatch({
+        type: 'user/getStatus',
+        payload: {}
+    })
+}, [])
   return (
     <PageContainer>
       <Card>
         <Alert
-          message={intl.formatMessage({
-            id: 'pages.welcome.alertMessage',
-            defaultMessage: '更快更强的重型组件，已经发布。',
-          })}
+          message={"当前学习状态"}
           type="success"
           showIcon
           banner
@@ -30,34 +28,17 @@ export default () => {
             marginBottom: 24,
           }}
         />
+        <Progress type="circle" percent={(Number(status/7507)*100).toFixed(0)} />
+        <br/>
+        <br/>
         <Typography.Text strong>
-          <FormattedMessage id="pages.welcome.advancedComponent" defaultMessage="高级表格" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="欢迎使用" />
-          </a>
+        已完成单词数量：{status}个,单词总数：7507个，今天继续加油！
         </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-table</CodePreview>
-        <Typography.Text
-          strong
-          style={{
-            marginBottom: 12,
-          }}
-        >
-          <FormattedMessage id="pages.welcome.advancedLayout" defaultMessage="高级布局" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/layout"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="欢迎使用" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
       </Card>
     </PageContainer>
   );
 };
+
+export default connect(({ user }) => ({
+  data: user,
+}))(welcome);

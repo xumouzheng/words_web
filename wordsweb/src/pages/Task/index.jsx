@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import { connect } from 'umi';
 import WordsList from '@/components/WordsList';
+import { message } from 'antd';
 
 const Task = (props) => {
     const { taskdata, loading } = props;
@@ -15,9 +16,15 @@ const Task = (props) => {
         })
     }, [])
 
-    // 做选择题的练习
-    const onTest = (key) => {
-        console.log(key)
+    // 保存单词
+    const onTest = (index) => {
+        const { dispatch } = props;
+        dispatch({
+            type: 'task/saveWord',
+            payload: {'wordindex':index}
+        }).then(()=>{
+            message.success("单词保存成功！！")
+        })
     }
 
     return (
