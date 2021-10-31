@@ -12,3 +12,7 @@ export async function queryNotices() {
 export async function getStatus() {
   return request('/api/status');
 }
+
+export async function getInfo() {
+  return request('/info/readinfo');
+}
